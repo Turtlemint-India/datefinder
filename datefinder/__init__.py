@@ -99,7 +99,7 @@ class DateFinder(object):
         # For well formatted string, we can already let dateutils parse them
         # otherwise self._find_and_replace method might corrupt them
         try:
-            as_dt = parser.parse(date_string, default=self.base_date)
+            as_dt = parser.parse(date_string, default=self.base_date, dayfirst=True)
         except ValueError:
             # replace tokens that are problematic for dateutil
             date_string, tz_string = self._find_and_replace(date_string, captures)
@@ -113,7 +113,7 @@ class DateFinder(object):
 
             try:
                 logger.debug("Parsing {0} with dateutil".format(date_string))
-                as_dt = parser.parse(date_string, default=self.base_date)
+                as_dt = parser.parse(date_string, default=self.base_date, dayfirst=True)
             except Exception as e:
                 logger.debug(e)
                 as_dt = None
